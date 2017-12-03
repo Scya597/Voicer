@@ -5,15 +5,15 @@ const mic = new UserMedia();
 mic.open().then(mic.toMaster());
 
 const param = {
+  eql: 0,
+  eqm: 0, // min -15, max 15
+  eqh: 0,
   threshold: -24, // [-100,0]
   ratio: 12, // [1,20]
   attack: 0.003, // [0,1]
   release: 0.25, // [0,1]
   filter: 2000,
   reverb: 50000,
-  eql: -10,
-  eqm: 3, // max 767
-  eqh: -20,
 };
 
 const masterChain = (obj) => {
@@ -74,33 +74,33 @@ export default class KeyControl {
           }
           break;
         case '9':
-          if (param.eql + 3 >= 500) {
-            param.eql += 3;
+          if (param.eql + 1 <= 15) {
+            param.eql += 1;
           }
           break;
         case '10':
-          if (param.eql - 3 >= -100) {
-            param.eql -= 3;
+          if (param.eql - 1 >= -15) {
+            param.eql -= 1;
           }
           break;
         case '15':
-          if (param.eqm + 3 <= 500) {
-            param.eqm += 3;
+          if (param.eqm + 1 <= 15) {
+            param.eqm += 1;
           }
           break;
         case '11':
-          if (param.eqm - 3 >= -100) {
-            param.eqm -= 3;
+          if (param.eqm - 1 >= -15) {
+            param.eqm -= 1;
           }
           break;
         case '16':
-          if (param.eqh + 3 <= 500) {
-            param.eqh += 3;
+          if (param.eqh + 1 <= 15) {
+            param.eqh += 1;
           }
           break;
         case '12':
-          if (param.eqh - 3 >= -100) {
-            param.eqh -= 3;
+          if (param.eqh - 1 >= -15) {
+            param.eqh -= 1;
           }
           break;
         default:
