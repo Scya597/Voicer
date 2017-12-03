@@ -1,4 +1,4 @@
-import { Compressor, Filter, Master, Freeverb, UserMedia } from 'tone';
+import { Compressor, Filter, Master, Freeverb, UserMedia, EQ3 } from 'tone';
 import { keysNotes } from './keys.config';
 
 const mic = new UserMedia();
@@ -11,6 +11,9 @@ const param = {
   release: 0.25, // [0,1]
   filter: 2000,
   reverb: 50000,
+  eql: -10,
+  eqm: 3, // max 767
+  eqh: -20,
 };
 
 const compress = (obj) => {
@@ -24,6 +27,8 @@ const compress = (obj) => {
   Master.chain(lowBump, masterCompressor);
   const freeverb = new Freeverb().toMaster();
   freeverb.dampening.value = obj.reverb;
+  const eq = new EQ3(obj.eql, obj.eqm, obj.eqh);
+  eq.toMaster();
   console.log('compress!!!');
 };
 
@@ -67,6 +72,36 @@ export default class KeyControl {
         case '24':
           if (param.release - 0.05 >= 0) {
             param.release -= 0.05;
+          }
+          break;
+        case '9':
+          if (param.eql + 3 >= 500) {
+            param.eql += 3;
+          }
+          break;
+        case '10':
+          if (param.eql - 3 >= -100) {
+            param.eql -= 3;
+          }
+          break;
+        case '15':
+          if (param.eqm + 3 <= 500) {
+            param.eqm += 3;
+          }
+          break;
+        case '11':
+          if (param.eqm - 3 >= -100) {
+            param.eqm -= 3;
+          }
+          break;
+        case '16':
+          if (param.eqh + 3 <= 500) {
+            param.eqh += 3;
+          }
+          break;
+        case '12':
+          if (param.eqh - 3 >= -100) {
+            param.eqh -= 3;
           }
           break;
         default:
