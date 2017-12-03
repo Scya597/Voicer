@@ -5,16 +5,16 @@ const mic = new UserMedia();
 mic.open().then(mic.toMaster());
 
 export const param = {
-  pitch: 0,       // [-12,  12]
-  width: 0.5,     // [0,    1]
-  reverb: 10000,   // [2000,    100000]
+  pitch: 0, // [-12,  12]
+  width: 0.5, // [0,    1]
+  reverb: 10000, // [2000,    100000]
   eql: 0,
-  eqm: 0,         // [-15,  15]
+  eqm: 0, // [-15,  15]
   eqh: -15,
   threshold: -24, // [-100, 0]
-  ratio: 12,      // [1,    20]
-  attack: 0.003,  // [0,    1]
-  release: 0.25,  // [0,    1]
+  ratio: 12, // [1,    20]
+  attack: 0.003, // [0,    1]
+  release: 0.25, // [0,    1]
   filter: 2000,
 };
 
@@ -27,8 +27,8 @@ const masterChain = (obj) => {
   });
   const lowBump = new Filter(obj.filter, 'lowshelf');
   const eq = new EQ3(obj.eql, obj.eqm, obj.eqh);
-  const freeverb = new Freeverb({'dampening': obj.reverb});
-  const pitch = new PitchShift({'pitch': obj.pitch});
+  const freeverb = new Freeverb({ 'dampening': obj.reverb });
+  const pitch = new PitchShift({ 'pitch': obj.pitch });
   const stereoWidener = new StereoWidener(obj.width);
   Master.chain(lowBump, masterCompressor, eq, freeverb, pitch, stereoWidener);
   console.log('chained!!!');
