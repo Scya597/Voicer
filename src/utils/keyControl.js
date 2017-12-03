@@ -29,9 +29,7 @@ const compress = (obj) => {
 
 compress(param);
 
-export default class keyControl {
-  notes: Array<String>;
-  samples: Object;
+export default class KeyControl {
   constructor() {
     this.currentKey = null;
     this.notes = keysNotes;
@@ -41,40 +39,41 @@ export default class keyControl {
     if (this.currentKey !== null) {
       // set value
       switch (this.currentKey) {
-        default:
-          break;
-        case 1:
-          if (param.threshold < 0) {
+        case '1':
+          if (param.threshold + 1 <= 0) {
             param.threshold += 1;
           }
           break;
-        case 2:
-          if (param.threshold > -100) {
+        case '19':
+          if (param.threshold - 1 >= -100) {
             param.threshold -= 1;
           }
           break;
-        case 3:
-          if (param.ratio < 20) {
+        case '17':
+          if (param.ratio + 1 <= 20) {
             param.ratio += 1;
           }
           break;
-        case 4:
-          if (param.ratio > 0) {
+        case '23':
+          if (param.ratio - 1 >= 0) {
             param.ratio -= 1;
           }
           break;
-        case 5:
-          if (param.release < 1) {
+        case '26':
+          if (param.release + 0.05 <= 1) {
             param.release += 0.05;
           }
           break;
-        case 6:
-          if (param.release > 0) {
+        case '24':
+          if (param.release - 0.05 >= 0) {
             param.release -= 0.05;
           }
           break;
+        default:
+          break;
       }
       console.log(param); // number
+      console.log(this.currentKey);
       this.currentKey = null;
     }
   }

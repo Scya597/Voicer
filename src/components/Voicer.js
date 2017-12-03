@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import key from 'keymaster';
 import _ from 'lodash';
-import keyControl from '../utils/keyControl';
+import KeyControl from '../utils/keyControl';
 
 let keys = '';
 _.range(26).forEach((i) => {
@@ -14,7 +14,7 @@ class Voicer extends Component {
     super();
     this.state = {};
     this.detectKeyboard = this.detectKeyboard.bind(this);
-    this.keyboard = new keyControl();
+    this.keyboard = new KeyControl();
   }
 
   componentDidMount() {
