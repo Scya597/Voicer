@@ -1,17 +1,18 @@
-import { Compressor, Filter, Master, Freeverb, UserMedia, EQ3 } from 'tone';
+import { Compressor, Filter, Master, Freeverb, UserMedia, EQ3, PitchShift } from 'tone';
 import { keysNotes } from './keys.config';
 
 const mic = new UserMedia();
 mic.open().then(mic.toMaster());
 
 const param = {
+  pitch: 0,       // [-12,  12]
   eql: 0,
-  eqm: 0, // min -15, max 15
+  eqm: 0,         // [-15,  15]
   eqh: 0,
-  threshold: -24, // [-100,0]
-  ratio: 12, // [1,20]
-  attack: 0.003, // [0,1]
-  release: 0.25, // [0,1]
+  threshold: -24, // [-100, 0]
+  ratio: 12,      // [1,    20]
+  attack: 0.003,  // [0,    1]
+  release: 0.25,  // [0,    1]
   filter: 2000,
   reverb: 50000,
 };
@@ -27,7 +28,8 @@ const masterChain = (obj) => {
   const eq = new EQ3(obj.eql, obj.eqm, obj.eqh);
   const freeverb = new Freeverb();
   freeverb.dampening.value = obj.reverb;
-  Master.chain(lowBump, masterCompressor, eq, freeverb);
+  const pitch = new PitchShift({'pitch': obj.pitch});
+  Master.chain(lowBump, masterCompressor, eq, freeverb, pitch);
   console.log('chained!!!');
 };
 
@@ -101,6 +103,16 @@ export default class KeyControl {
         case '12': // L
           if (param.eqh - 1 >= -15) {
             param.eqh -= 1;
+          }
+          break;
+        case '4':
+          if (param.pitch + 1 <= 12) {
+            param.pitch += 1;
+          }
+          break;
+        case '6':
+          if (param.pitch - 1 >= -12) {
+            param.pitch -= 1;
           }
           break;
         default:
