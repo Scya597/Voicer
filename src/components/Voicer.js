@@ -16,20 +16,22 @@ const limit = {
   ratio: [1, 20],
   release: [0, 1],
   eql: [-15, 15],
+  eqm: [-15, 15],
+  pitch: [-12, 12],
 };
 
 class Voicer extends Component {
   constructor() {
     super();
     this.state = {
-      pitch: 0,       // [-12,  12]
+      pitch: 0, // [-12,  12]
       eql: 0,
-      eqm: 0,         // [-15,  15]
-      eqh: 0,
+      eqm: 0, // [-15,  15]
+      eqh: -15,
       threshold: -24, // [-100, 0]
-      ratio: 12,      // [1,    20]
-      attack: 0.003,  // [0,    1]
-      release: 0.25,  // [0,    1]
+      ratio: 12, // [1,    20]
+      attack: 0.003, // [0,    1]
+      release: 0.25, // [0,    1]
       filter: 2000,
       reverb: 50000,
     };
@@ -58,20 +60,25 @@ class Voicer extends Component {
       ratio: (this.state.ratio - limit.ratio[0]) / (limit.ratio[1] - limit.ratio[0]),
       release: (this.state.release - limit.release[0]) / (limit.release[1] - limit.release[0]),
       eql: (this.state.eql - limit.eql[0]) / (limit.eql[1] - limit.eql[0]),
+      eqm: (this.state.eqm - limit.eqm[0]) / (limit.eqm[1] - limit.eqm[0]),
+      pitch: (this.state.pitch - limit.pitch[0]) / (limit.pitch[1] - limit.pitch[0]),
     };
 
     return (
       <div className="container">
+        <div className="header"> Voicer </div>
         <div style={hide}>
           <input
             type="text"
             onKeyPress={this.detectKeyboard}
           />
         </div>
-        <PieChart perc={perc.threshold} Ascii={['A','S']} name="Thereshold" />
-        <PieChart perc={perc.ratio} Ascii={['Q','W']} name="Ratio"/>
-        <PieChart perc={perc.release} Ascii={['Z','X']} name="Release"/>
-        <PieChart perc={perc.eql} Ascii={['I','J']} name="Eql"/>
+        <PieChart perc={perc.threshold} Ascii={['A', 'S']} name="Thereshold" />
+        <PieChart perc={perc.ratio} Ascii={['Q', 'W']} name="Ratio" />
+        <PieChart perc={perc.release} Ascii={['Z', 'X']} name="Release" />
+        <PieChart perc={perc.eql} Ascii={['I', 'J']} name="Eql" />
+        <PieChart perc={perc.eqm} Ascii={['O', 'K']} name="Eqm" />
+        <PieChart perc={perc.pitch} Ascii={['D', 'F']} name="Pitch" />
       </div>
     );
   }

@@ -9,7 +9,7 @@ export const param = {
   width: 0.5,     // [0,    1]
   eql: 0,
   eqm: 0,         // [-15,  15]
-  eqh: 0,
+  eqh: -15,
   threshold: -24, // [-100, 0]
   ratio: 12,      // [1,    20]
   attack: 0.003,  // [0,    1]
@@ -141,6 +141,7 @@ export default class KeyControl {
         eql: param.eql,
         eqm: param.eqm, // max 767
         eqh: param.eqh,
+        pitch: param.pitch,
       });
       this.currentKey = null;
     }
