@@ -27,5 +27,9 @@ npm run dev
 npm run build
 npm start
 ```
-
+## 3. Usage
+- You should better open with chrome
+- Put on your earphone to get better user experience
+- Press the key on the circle to tune the params
+- Enjoy!
 
