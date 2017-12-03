@@ -49,7 +49,7 @@ $size-info: 160px;
 }
 .pie-chart{
   position: relative;
-  width: $size;
+  min-width: $size;
   height: $size;
   background-color: #e4e4e4;
   border-radius: 50%;
