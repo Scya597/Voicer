@@ -56,7 +56,8 @@ class Voicer extends Component {
       display: 'none',
     };
     const perc = {
-      threshold: (this.state.threshold - limit.threshold[0]) / (limit.threshold[1] - limit.threshold[0]), // [-100,0]
+      threshold: (this.state.threshold - limit.threshold[0]) /
+        (limit.threshold[1] - limit.threshold[0]), // [-100,0]
       ratio: (this.state.ratio - limit.ratio[0]) / (limit.ratio[1] - limit.ratio[0]),
       release: (this.state.release - limit.release[0]) / (limit.release[1] - limit.release[0]),
       eql: (this.state.eql - limit.eql[0]) / (limit.eql[1] - limit.eql[0]),
