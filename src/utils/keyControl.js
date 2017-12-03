@@ -1,4 +1,4 @@
-import { Compressor, Filter, Master, Freeverb, UserMedia, EQ3, PitchShift } from 'tone';
+import { Compressor, Filter, Master, Freeverb, UserMedia, EQ3, PitchShift, StereoWidener } from 'tone';
 import { keysNotes } from './keys.config';
 
 const mic = new UserMedia();
@@ -6,6 +6,7 @@ mic.open().then(mic.toMaster());
 
 export const param = {
   pitch: 0,       // [-12,  12]
+  width: 0.5,     // [0,    1]
   eql: 0,
   eqm: 0,         // [-15,  15]
   eqh: 0,
@@ -29,7 +30,8 @@ const masterChain = (obj) => {
   const freeverb = new Freeverb();
   freeverb.dampening.value = obj.reverb;
   const pitch = new PitchShift({'pitch': obj.pitch});
-  Master.chain(lowBump, masterCompressor, eq, freeverb, pitch);
+  const stereoWidener = new StereoWidener(obj.width);
+  Master.chain(lowBump, masterCompressor, eq, freeverb, pitch, stereoWidener);
   console.log('chained!!!');
 };
 
@@ -105,14 +107,24 @@ export default class KeyControl {
             param.eqh -= 1;
           }
           break;
-        case '4':
+        case '4': // D
           if (param.pitch + 1 <= 12) {
             param.pitch += 1;
           }
           break;
-        case '6':
+        case '6': // F
           if (param.pitch - 1 >= -12) {
             param.pitch -= 1;
+          }
+          break;
+        case '3': // C
+          if (param.width + 0.1 <= 1) {
+            param.width += 0.1;
+          }
+          break;
+        case '22': // V
+          if (param.width - 0.1 >= 0) {
+            param.width -= 0.1;
           }
           break;
         default:
