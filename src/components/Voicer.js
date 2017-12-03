@@ -74,7 +74,7 @@ class Voicer extends Component {
             onKeyPress={this.detectKeyboard}
           />
         </div>
-        <PieChart perc={perc.threshold} Ascii={['A', 'S']} name="Thereshold" />
+        <PieChart perc={perc.threshold} Ascii={['A', 'S']} name="Threshold" />
         <PieChart perc={perc.ratio} Ascii={['Q', 'W']} name="Ratio" />
         <PieChart perc={perc.release} Ascii={['Z', 'X']} name="Release" />
         <PieChart perc={perc.eql} Ascii={['I', 'J']} name="Eql" />
