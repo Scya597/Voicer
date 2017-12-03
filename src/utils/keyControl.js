@@ -16,7 +16,7 @@ const param = {
   eqh: -20,
 };
 
-const compress = (obj) => {
+const masterChain = (obj) => {
   const masterCompressor = new Compressor({
     'threshold': obj.threshold,
     'ratio': obj.ratio,
@@ -24,15 +24,14 @@ const compress = (obj) => {
     'release': obj.release,
   });
   const lowBump = new Filter(obj.filter, 'lowshelf');
-  Master.chain(lowBump, masterCompressor);
-  const freeverb = new Freeverb().toMaster();
-  freeverb.dampening.value = obj.reverb;
   const eq = new EQ3(obj.eql, obj.eqm, obj.eqh);
-  eq.toMaster();
-  console.log('compress!!!');
+  const freeverb = new Freeverb();
+  freeverb.dampening.value = obj.reverb;
+  Master.chain(lowBump, masterCompressor, eq, freeverb);
+  console.log('chained!!!');
 };
 
-compress(param);
+masterChain(param);
 
 export default class KeyControl {
   constructor() {
@@ -107,6 +106,7 @@ export default class KeyControl {
         default:
           break;
       }
+      masterChain(param);
       console.log(param); // number
       console.log(this.currentKey);
       this.currentKey = null;
