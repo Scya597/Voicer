@@ -7,6 +7,7 @@ mic.open().then(mic.toMaster());
 export const param = {
   pitch: 0,       // [-12,  12]
   width: 0.5,     // [0,    1]
+  reverb: 10000,   // [2000,    100000]
   eql: 0,
   eqm: 0,         // [-15,  15]
   eqh: -15,
@@ -15,7 +16,6 @@ export const param = {
   attack: 0.003,  // [0,    1]
   release: 0.25,  // [0,    1]
   filter: 2000,
-  reverb: 50000,
 };
 
 const masterChain = (obj) => {
@@ -27,8 +27,7 @@ const masterChain = (obj) => {
   });
   const lowBump = new Filter(obj.filter, 'lowshelf');
   const eq = new EQ3(obj.eql, obj.eqm, obj.eqh);
-  const freeverb = new Freeverb();
-  freeverb.dampening.value = obj.reverb;
+  const freeverb = new Freeverb({'dampening': obj.reverb});
   const pitch = new PitchShift({'pitch': obj.pitch});
   const stereoWidener = new StereoWidener(obj.width);
   Master.chain(lowBump, masterCompressor, eq, freeverb, pitch, stereoWidener);
@@ -125,6 +124,16 @@ export default class KeyControl {
         case '22': // V
           if (param.width - 0.1 >= 0) {
             param.width -= 0.1;
+          }
+          break;
+        case '5': // E
+          if (param.reverb * 1.1 <= 100000) {
+            param.reverb *= 1.1;
+          }
+          break;
+        case '18': // R
+          if (param.reverb * 0.9 >= 2000) {
+            param.reverb *= 0.9;
           }
           break;
         default:
