@@ -1,0 +1,21 @@
+{
+  "presets": [
+    [
+      "env",
+      {
+        "targets": {
+          "browsers": ["last 2 versions", "safari >= 7"]
+        }
+      }
+    ],
+    "react",
+    "stage-2",
+    [
+      "minify",
+      {
+        "evaluate": false,
+        "mangle": false
+      }
+    ]
+  ]
+}

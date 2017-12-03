@@ -1,10 +1,10 @@
 import React from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import KeyMachine from './KeyMachine';
+import Voicer from './Voicer';
 
 const App = () => (
   <MuiThemeProvider>
-    <KeyMachine />
+    <Voicer />
   </MuiThemeProvider>
 );
 

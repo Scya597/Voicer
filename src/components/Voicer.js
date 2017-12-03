@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import key from 'keymaster';
 import _ from 'lodash';
-import Keyboard from '../utils/Audio';
+import Sound from '../utils/Sound';
 
 let keys = '';
 _.range(26).forEach((i) => {
@@ -9,12 +9,12 @@ _.range(26).forEach((i) => {
   if (i < 25) { keys = keys.concat(', '); }
 });
 
-class KeyMachine extends Component {
+class Voicer extends Component {
   constructor() {
     super();
     this.state = {};
     this.detectKeyboard = this.detectKeyboard.bind(this);
-    this.keyboard = new Keyboard();
+    this.keyboard = new Sound();
   }
 
   componentDidMount() {
@@ -28,7 +28,6 @@ class KeyMachine extends Component {
       this.keyboard.playKey();
     });
   }
-
 
   render() {
     const hide = {
@@ -49,4 +48,4 @@ class KeyMachine extends Component {
   }
 }
 
-export default KeyMachine;
+export default Voicer;
