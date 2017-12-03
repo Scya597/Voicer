@@ -43,62 +43,62 @@ export default class KeyControl {
     if (this.currentKey !== null) {
       // set value
       switch (this.currentKey) {
-        case '1':
+        case '1': // A
           if (param.threshold + 1 <= 0) {
             param.threshold += 1;
           }
           break;
-        case '19':
+        case '19': // S
           if (param.threshold - 1 >= -100) {
             param.threshold -= 1;
           }
           break;
-        case '17':
+        case '17': // Q
           if (param.ratio + 1 <= 20) {
             param.ratio += 1;
           }
           break;
-        case '23':
+        case '23': // W
           if (param.ratio - 1 >= 0) {
             param.ratio -= 1;
           }
           break;
-        case '26':
+        case '26': // Z
           if (param.release + 0.05 <= 1) {
             param.release += 0.05;
           }
           break;
-        case '24':
+        case '24': // X
           if (param.release - 0.05 >= 0) {
             param.release -= 0.05;
           }
           break;
-        case '9':
+        case '9': // I
           if (param.eql + 1 <= 15) {
             param.eql += 1;
           }
           break;
-        case '10':
+        case '10': // J
           if (param.eql - 1 >= -15) {
             param.eql -= 1;
           }
           break;
-        case '15':
+        case '15': // O
           if (param.eqm + 1 <= 15) {
             param.eqm += 1;
           }
           break;
-        case '11':
+        case '11': // K
           if (param.eqm - 1 >= -15) {
             param.eqm -= 1;
           }
           break;
-        case '16':
+        case '16': // P
           if (param.eqh + 1 <= 15) {
             param.eqh += 1;
           }
           break;
-        case '12':
+        case '12': // L
           if (param.eqh - 1 >= -15) {
             param.eqh -= 1;
           }
