@@ -28,8 +28,8 @@ npm run build
 npm start
 ```
 ## 3. Usage
-- You should better open with chrome
-- Put on your earphone to get better user experience
-- Press the key on the circle to tune the params
+- Say something to your microphone and tune the params on the circle to get different sounds.
+- Press the key on the circle to tune the params.
+- You should better open with chrome,and put on your earphone to get better user experience.
 - Enjoy!
 
