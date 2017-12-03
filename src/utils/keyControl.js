@@ -4,7 +4,7 @@ import { keysNotes } from './keys.config';
 const mic = new UserMedia();
 mic.open().then(mic.toMaster());
 
-const param = {
+export const param = {
   pitch: 0,       // [-12,  12]
   eql: 0,
   eqm: 0,         // [-15,  15]
@@ -41,7 +41,7 @@ export default class KeyControl {
     this.notes = keysNotes;
   }
 
-  playKey() {
+  playKey(settingState) {
     if (this.currentKey !== null) {
       // set value
       switch (this.currentKey) {
@@ -119,8 +119,17 @@ export default class KeyControl {
           break;
       }
       masterChain(param);
-      console.log(param); // number
-      console.log(this.currentKey);
+      settingState({
+        threshold: param.threshold, // [-100,0]
+        ratio: param.ratio, // [1,20]
+        attack: param.attack, // [0,1]
+        release: param.release, // [0,1]
+        filter: param.filter,
+        reverb: param.reverb,
+        eql: param.eql,
+        eqm: param.eqm, // max 767
+        eqh: param.eqh,
+      });
       this.currentKey = null;
     }
   }
