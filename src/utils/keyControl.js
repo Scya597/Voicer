@@ -4,7 +4,8 @@ import { keysNotes } from './keys.config';
 const mic = new UserMedia();
 mic.open().then(mic.toMaster());
 
-const param = {
+
+export const param = {
   threshold: -24, // [-100,0]
   ratio: 12, // [1,20]
   attack: 0.003, // [0,1]
@@ -29,7 +30,6 @@ const compress = (obj) => {
   freeverb.dampening.value = obj.reverb;
   const eq = new EQ3(obj.eql, obj.eqm, obj.eqh);
   eq.toMaster();
-  console.log('compress!!!');
 };
 
 compress(param);
@@ -40,7 +40,7 @@ export default class KeyControl {
     this.notes = keysNotes;
   }
 
-  playKey() {
+  playKey(settingState) {
     if (this.currentKey !== null) {
       // set value
       switch (this.currentKey) {
@@ -107,8 +107,17 @@ export default class KeyControl {
         default:
           break;
       }
-      console.log(param); // number
-      console.log(this.currentKey);
+      settingState({
+        threshold: param.threshold, // [-100,0]
+        ratio: param.ratio, // [1,20]
+        attack: param.attack, // [0,1]
+        release: param.release, // [0,1]
+        filter: param.filter,
+        reverb: param.reverb,
+        eql: param.eql,
+        eqm: param.eqm, // max 767
+        eqh: param.eqh,
+      });
       this.currentKey = null;
     }
   }
